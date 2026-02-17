@@ -21,3 +21,15 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDEs
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
