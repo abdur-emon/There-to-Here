@@ -143,6 +143,20 @@ tests/
 - Node.js 18+
 - npm or yarn
 
+### Deployment
+
+To ensure a fresh start for the UI after pulling updates (e.g., from xCloud), run the deployment script:
+
+```bash
+./deploy.sh
+```
+
+This script will:
+- Install backend and frontend dependencies
+- Build fresh UI assets using Vite
+- Clear Laravel view, cache, route, and config caches
+- Run database migrations
+
 ### Installation
 
 1. **Install PHP dependencies:**

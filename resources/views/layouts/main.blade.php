@@ -44,18 +44,7 @@
         </a>
 
         <div class="flex space-x-4 items-center">
-            @auth
-                <form method="POST" action="{{ route('logout') }}" class="inline m-0 p-0 ml-4">
-                    @csrf
-                    <button type="submit"
-                        class="text-sm font-mono tracking-wider text-rose-500 hover:text-rose-400 hover:animate-glitch transition-all uppercase">
-                        [DISCONNECT_NODE]
-                    </button>
-                </form>
-            @else
-                <a href="{{ route('login') }}"
-                    class="text-sm font-mono tracking-wider text-slate-400 hover:text-sky-400 hover:animate-glitch transition-all">AUTH_LOGIN</a>
-            @endauth
+            <!-- Auth links removed -->
         </div>
     </nav>
 

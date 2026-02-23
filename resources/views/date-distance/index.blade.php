@@ -56,15 +56,13 @@
                         PROCESS
                     </button>
 
-                    @auth
-                        <!-- Reset Button - Only for authorized users -->
-                        <div class="pt-4 mt-6 border-t border-sky-500/20 flex justify-end">
-                            <button type="button" id="reset-button"
-                                class="text-xs font-mono text-rose-500 hover:text-rose-400 uppercase tracking-widest px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-sm transition-all hover:shadow-[0_0_10px_rgba(244,63,94,0.3)]">
-                                [PURGE_DATA]
-                            </button>
-                        </div>
-                    @endauth
+                    <!-- Reset Button - Public feature -->
+                    <div class="pt-4 mt-6 border-t border-sky-500/20 flex justify-end">
+                        <button type="button" id="reset-button"
+                            class="text-xs font-mono text-rose-500 hover:text-rose-400 uppercase tracking-widest px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-sm transition-all hover:shadow-[0_0_10px_rgba(244,63,94,0.3)]">
+                            [PURGE_DATA]
+                        </button>
+                    </div>
                 </form>
 
                 <!-- Results -->

@@ -46,25 +46,8 @@
         </div>
 
         <div class="flex space-x-4 items-center">
-            @auth
-                <a href="{{ url('/app') }}"
-                    class="text-sm font-mono tracking-wider text-slate-400 hover:text-sky-400 hover:animate-glitch transition-all">INITIALIZE_APP</a>
-
-                <form method="POST" action="{{ route('logout') }}" class="inline m-0 p-0 ml-4">
-                    @csrf
-                    <button type="submit"
-                        class="text-sm font-mono tracking-wider text-rose-500 hover:text-rose-400 hover:animate-glitch transition-all uppercase">
-                        [DISCONNECT_NODE]
-                    </button>
-                </form>
-            @else
-                <a href="{{ route('login') }}"
-                    class="text-sm font-mono tracking-wider text-slate-400 hover:text-sky-400 hover:animate-glitch transition-all">AUTH_LOGIN</a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}"
-                        class="cyber-button-primary px-5 py-2 rounded-sm text-sm uppercase tracking-wider ml-4">REGISTER_NODE</a>
-                @endif
-            @endauth
+            <a href="{{ url('/app') }}"
+                class="text-sm font-mono tracking-wider text-slate-400 hover:text-sky-400 hover:animate-glitch transition-all">INITIALIZE_APP</a>
         </div>
     </nav>
 
@@ -106,13 +89,6 @@
                             d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </a>
-
-                @guest
-                    <a href="{{ route('register') }}"
-                        class="cyber-button w-full sm:w-auto px-10 py-4 rounded-sm font-mono tracking-wider uppercase flex items-center justify-center">
-                        ESTABLISH_UPLINK
-                    </a>
-                @endguest
             </div>
 
             <!-- Data Modules -->
@@ -134,7 +110,7 @@
                     </div>
                     <div class="text-indigo-400 font-mono text-xs mb-4 tracking-widest opacity-70">MOD_02</div>
                     <h3 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Secure Comms</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Authorized nodes can synthesize encrypted link
+                    <p class="text-slate-400 text-sm leading-relaxed">Global nodes can synthesize encrypted link
                         generation and clipboard protocols.</p>
                 </div>
 
