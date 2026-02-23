@@ -21,7 +21,7 @@
             name="{{ $name }}"
             value="{{ $value }}"
             {{ $required ? 'required' : '' }}
-            onkeydown="return false"
+            onkeydown="return (event.ctrlKey || event.metaKey || /^[0-9]$/.test(event.key) || ['Backspace', 'Tab', 'Enter', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '-', '/'].includes(event.key))"
             class="futuristic-input w-full px-4 py-3 pr-10 rounded-sm font-mono text-sm tracking-wide focus:outline-none focus:ring-0 placeholder-slate-500"
             aria-label="{{ $label }}"
         />
