@@ -19,6 +19,8 @@ class DateDistanceApp {
   private useFromDateCheckbox: HTMLInputElement;
   private fromDateContainer: HTMLElement;
   private resultContainer: HTMLElement;
+  private errorContainer: HTMLElement | null;
+  private errorMessage: HTMLElement | null;
 
   // Auth only elements
   private resetButton: HTMLButtonElement | null;
@@ -38,6 +40,8 @@ class DateDistanceApp {
     this.resetButton = document.getElementById('reset-button') as HTMLButtonElement | null;
     this.copyButton = document.getElementById('copy-button') as HTMLButtonElement | null;
     this.shareButton = document.getElementById('share-button') as HTMLButtonElement | null;
+    this.errorContainer = document.getElementById('error-container');
+    this.errorMessage = document.getElementById('error-message');
 
     this.init();
   }
@@ -81,31 +85,52 @@ class DateDistanceApp {
 
   private handleCalculate(): void {
     const targetDate = this.targetDateInput.value;
-
-    if (!targetDate || !isValidDateString(targetDate)) {
-      return;
-    }
-
     const fromDate = this.useFromDateCheckbox.checked && this.fromDateInput.value
       ? this.fromDateInput.value
       : null;
 
-    if (fromDate && !isValidDateString(fromDate)) {
+    if (!targetDate || !isValidDateString(targetDate)) {
+      this.showError('Target date is required and must be a valid temporal coordinate.');
       return;
     }
 
-    const result = calculateDateDistance(targetDate, fromDate || undefined);
+    if (fromDate && !isValidDateString(fromDate)) {
+      this.showError('Custom origin date is invalid or out of temporal bounds.');
+      return;
+    }
 
-    this.state.targetDate = targetDate;
-    this.state.fromDate = fromDate;
-    this.state.result = result;
+    try {
+      this.hideError();
+      const result = calculateDateDistance(targetDate, fromDate || undefined);
 
-    saveState({
-      targetDate,
-      fromDate,
-    });
+      this.state.targetDate = targetDate;
+      this.state.fromDate = fromDate;
+      this.state.result = result;
 
-    this.updateUI(result);
+      saveState({
+        targetDate,
+        fromDate,
+      });
+
+      this.updateUI(result);
+    } catch (err) {
+      console.error('Calculation Error:', err);
+      this.showError('CRITICAL_TEMPORAL_ERROR: Coordinates are out of bounds or mathematically impossible.');
+    }
+  }
+
+  private showError(message: string): void {
+    if (this.errorContainer && this.errorMessage) {
+      this.errorMessage.textContent = message;
+      this.errorContainer.classList.remove('hidden');
+      this.resultContainer.classList.add('hidden');
+    }
+  }
+
+  private hideError(): void {
+    if (this.errorContainer) {
+      this.errorContainer.classList.add('hidden');
+    }
   }
 
   private updateUI(result: DateDistanceResult): void {
@@ -161,6 +186,7 @@ class DateDistanceApp {
     this.fromDateInput.value = '';
     this.useFromDateCheckbox.checked = false;
     this.fromDateContainer.classList.add('hidden');
+    this.hideError();
 
     // Reset state
     this.state = getInitialState();
