@@ -63,17 +63,8 @@ class DateDistanceApp {
       }
     });
 
-    this.targetDateInput.addEventListener('change', () => {
-      if (this.targetDateInput.value) {
-        this.handleCalculate();
-      }
-    });
-
-    this.fromDateInput.addEventListener('change', () => {
-      if (this.targetDateInput.value) {
-        this.handleCalculate();
-      }
-    });
+    // Automatic calculations removed as per request.
+    // Calculations only trigger on form submit (Process button).
 
     if (this.resetButton) {
       this.resetButton.addEventListener('click', () => this.handleReset());
@@ -159,19 +150,29 @@ class DateDistanceApp {
       this.fromDateInput.value = '';
       this.state.fromDate = null;
       saveState({ fromDate: null });
-
-      if (this.targetDateInput.value) {
-        this.handleCalculate();
-      }
     }
   }
 
   private handleReset(): void {
     clearState();
-    window.location.href = '/';
+
+    // Clear inputs
+    this.targetDateInput.value = '';
+    this.fromDateInput.value = '';
+    this.useFromDateCheckbox.checked = false;
+    this.fromDateContainer.classList.add('hidden');
+
+    // Reset state
+    this.state = getInitialState();
+
+    // Hide results
+    this.resultContainer.classList.add('hidden');
+
+    // Remove query params from URL without reload
+    window.history.pushState({}, '', window.location.pathname);
   }
 
-  private async handleCopy(): void {
+  private async handleCopy(): Promise<void> {
     if (!this.state.result) return;
 
     const textToCopy = `${this.state.result.humanReadable}\n\n` +
@@ -199,7 +200,7 @@ class DateDistanceApp {
     }
   }
 
-  private async handleShare(): void {
+  private async handleShare(): Promise<void> {
     const url = window.location.href;
     const title = 'Date Distance Calculator Result';
     let text = 'Check out this date calculation!';
