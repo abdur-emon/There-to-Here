@@ -208,17 +208,7 @@ class DateDistanceApp {
       text = this.state.result.humanReadable;
     }
 
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title,
-          text,
-          url,
-        });
-      } catch (err) {
-        console.error('Error sharing:', err);
-      }
-    } else {
+    const fallbackToClipboard = async () => {
       try {
         await navigator.clipboard.writeText(url);
         const shareText = document.getElementById('share-text');
@@ -232,6 +222,25 @@ class DateDistanceApp {
       } catch (err) {
         console.error('Failed to copy link: ', err);
       }
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text,
+          url,
+        });
+      } catch (err) {
+        // If user cancelled, don't fallback, just ignore
+        if (err instanceof Error && err.name === 'AbortError') {
+          return;
+        }
+        // For other errors, try fallback to clipboard
+        await fallbackToClipboard();
+      }
+    } else {
+      await fallbackToClipboard();
     }
   }
 }
