@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="একদিন তো মরেই যাবো ! Calculate the precise time between any two dates with beautiful visualizations.">
+
+    <title>{{ $title ?? 'একদিন তো মরেই যাবো ! - Date Distance Calculator' }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.ts'])
+</head>
+
+<body
+    class="antialiased bg-slate-950 text-slate-300 font-sans selection:bg-sky-500/30 selection:text-sky-200 overflow-x-hidden dark relative">
+
+    <!-- Dynamic Cyber Background -->
+    <div class="fixed inset-0 z-0 bg-slate-950 pointer-events-none">
+        <div
+            class="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] animate-scan">
+        </div>
+        <div
+            class="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-600/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-glow">
+        </div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-glow"
+            style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- Navigation Area -->
+    <nav
+        class="absolute top-0 w-full px-6 py-4 flex justify-between items-center z-20 border-b border-white/5 bg-slate-950/50 backdrop-blur-md">
+        <a href="/" class="text-xl font-bold text-white tracking-widest uppercase flex items-center gap-3">
+            <div class="relative flex items-center justify-center w-8 h-8">
+                <div class="absolute inset-0 border border-sky-500/50 rotate-45 animate-spin-slow"></div>
+                <div class="w-1.5 h-1.5 bg-sky-400 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]"></div>
+            </div>
+            There_to_<span class="text-sky-400">Here</span>
+        </a>
+
+        <div class="flex space-x-4 items-center">
+            @auth
+                <form method="POST" action="{{ route('logout') }}" class="inline m-0 p-0 ml-4">
+                    @csrf
+                    <button type="submit"
+                        class="text-sm font-mono tracking-wider text-rose-500 hover:text-rose-400 hover:animate-glitch transition-all uppercase">
+                        [DISCONNECT_NODE]
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}"
+                    class="text-sm font-mono tracking-wider text-slate-400 hover:text-sky-400 hover:animate-glitch transition-all">AUTH_LOGIN</a>
+            @endauth
+        </div>
+    </nav>
+
+    <div class="relative z-10 pt-20 pb-10">
+        @yield('content')
+    </div>
+</body>
+
+</html>

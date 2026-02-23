@@ -161,7 +161,12 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-4. **Build assets:**
+4. **Initialize Database (Required for Admin Features):**
+```bash
+php artisan migrate
+```
+
+5. **Build assets:**
 ```bash
 npm run build
 ```
@@ -179,6 +184,12 @@ npm run dev
 ```
 
 Visit: `http://localhost:8000`
+
+### Accessing Admin Features (Copy/Share/Reset)
+
+This application includes protected features behind an authentication wall.
+1. Navigate to `http://localhost:8000/register` to create a local account.
+2. Once logged in, return to the main calculator to access the **Copy, Share, and Reset** actions.
 
 ### Testing
 

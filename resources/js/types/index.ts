@@ -1,7 +1,3 @@
-/**
- * Type definitions for the date distance calculator
- */
-
 export interface DateDistanceResult {
   years: number;
   months: number;
@@ -17,7 +13,5 @@ export interface DateDistanceResult {
 export interface AppState {
   targetDate: string | null;
   fromDate: string | null;
-  theme: 'dark' | 'light';
   result: DateDistanceResult | null;
 }
-

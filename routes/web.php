@@ -1,10 +1,25 @@
 <?php
 
-use App\Http\Controllers\DateDistanceController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Main application route
-Route::get('/', [DateDistanceController::class, 'index'])->name('home');
+use App\Http\Controllers\DateDistanceController;
 
-// API endpoint for client-side calculations (optional)
-Route::post('/api/calculate', [DateDistanceController::class, 'calculate'])->name('api.calculate');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/app', [DateDistanceController::class, 'index'])
+    ->name('calculator');
+
+Route::get('/dashboard', function () {
+    return redirect()->route('calculator');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
