@@ -60,14 +60,14 @@
             <div
                 class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-mono tracking-widest uppercase mb-8 shadow-[0_0_15px_rgba(56,189,248,0.15)] animate-float-fast">
                 <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                Temporal Processor v2.0
+                Date Distance Calculator v2.0
             </div>
 
             <h1
                 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight uppercase relative inline-block animate-flicker">
-                Map The <br class="hidden md:block" />
+                Distance Between <br class="hidden md:block" />
                 <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-400 to-sky-400 animate-pulse-glow animate-glitch hover:animate-glitch cursor-crosshair">Distance</span>
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-400 to-sky-400 animate-pulse-glow animate-glitch hover:animate-glitch cursor-crosshair">Dates</span>
 
                 <!-- Corner brackets decoration -->
                 <div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-sky-500/30"></div>
@@ -75,8 +75,7 @@
             </h1>
 
             <p class="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl leading-relaxed font-light">
-                A high-precision temporal calculator engineered to compute the exact span between distinct chronologies.
-                Enter coordinates to determine exact spatial-time variance.
+                A high-precision temporal calculator engineered to compute the exact span between dates.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
@@ -89,41 +88,6 @@
                             d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </a>
-            </div>
-
-            <!-- Data Modules -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32 text-left w-full">
-
-                <div class="glass-panel p-6 rounded-sm relative overflow-hidden group">
-                    <div
-                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400/0 via-sky-400 to-sky-400/0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <div class="text-sky-400 font-mono text-xs mb-4 tracking-widest opacity-70">MOD_01</div>
-                    <h3 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Instant Execution</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Zero latency client-side rendering. Immediate
-                        variable processing leveraging modern DOM capabilities.</p>
-                </div>
-
-                <div class="glass-panel p-6 rounded-sm relative overflow-hidden group">
-                    <div
-                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-400/0 via-indigo-400 to-indigo-400/0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <div class="text-indigo-400 font-mono text-xs mb-4 tracking-widest opacity-70">MOD_02</div>
-                    <h3 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Secure Comms</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Global nodes can synthesize encrypted link
-                        generation and clipboard protocols.</p>
-                </div>
-
-                <div class="glass-panel p-6 rounded-sm relative overflow-hidden group">
-                    <div
-                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400/0 via-sky-400 to-sky-400/0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <div class="text-sky-400 font-mono text-xs mb-4 tracking-widest opacity-70">MOD_03</div>
-                    <h3 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">Cyber Aesthetics</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Engineered with high contrast visual styling. Neon
-                        indicators, structural grids, and glass diffusion.</p>
-                </div>
-
             </div>
 
         </div>
