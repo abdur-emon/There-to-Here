@@ -28,6 +28,18 @@ yarn-error.log
 # Windows
 Thumbs.db
 
+# Standard Laravel ignores
+/bootstrap/cache/*
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Composer
+composer-setup.php
+composer.phar
+
 # IDEs
 _ide_helper.php
 _ide_helper_models.php

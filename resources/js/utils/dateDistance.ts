@@ -16,76 +16,80 @@
  * - Handles edge cases (leap years, DST, etc.)
  */
 
-import { 
-  differenceInYears, 
-  differenceInMonths, 
+import {
+  differenceInYears,
+  differenceInMonths,
   differenceInDays,
   differenceInHours,
   differenceInSeconds,
-  differenceInWeeks,
   startOfDay,
   parseISO,
   isBefore,
   isSameDay,
-  isValid
+  isValid,
+  addYears,
+  addMonths
 } from 'date-fns';
 import type { DateDistanceResult } from '@/types';
 
 /**
  * Calculate the distance between two dates
- * 
- * @param targetDateStr - Target date in ISO format (YYYY-MM-DD)
- * @param fromDateStr - From date in ISO format (defaults to today)
- * @returns DateDistanceResult object
  */
 export function calculateDateDistance(
   targetDateStr: string,
   fromDateStr?: string
 ): DateDistanceResult {
-  // Parse dates and normalize to start of day
-  const targetDate = startOfDay(parseISO(targetDateStr));
-  const fromDate = fromDateStr 
-    ? startOfDay(parseISO(fromDateStr)) 
-    : startOfDay(new Date());
-  
-  // Determine direction
-  const direction = getDirection(fromDate, targetDate);
-  
-  // Calculate years, months, days
-  // We need to calculate these step by step to get accurate results
-  const totalYears = Math.abs(differenceInYears(targetDate, fromDate));
-  
-  // Get the date after subtracting years
-  const afterYears = new Date(fromDate);
-  afterYears.setFullYear(afterYears.getFullYear() + (isBefore(fromDate, targetDate) ? totalYears : -totalYears));
-  
-  // Calculate remaining months
-  const totalMonths = Math.abs(differenceInMonths(targetDate, afterYears));
-  
-  // Get the date after subtracting months
-  const afterMonths = new Date(afterYears);
-  afterMonths.setMonth(afterMonths.getMonth() + (isBefore(afterYears, targetDate) ? totalMonths : -totalMonths));
-  
-  // Calculate remaining days
-  const remainingDays = Math.abs(differenceInDays(targetDate, afterMonths));
-  
-  // Calculate totals
-  const totalDays = Math.abs(differenceInDays(targetDate, fromDate));
-  const totalWeeks = parseFloat((totalDays / 7).toFixed(2));
-  const totalHours = Math.abs(differenceInHours(targetDate, fromDate));
-  const totalSeconds = Math.abs(differenceInSeconds(targetDate, fromDate));
-  
-  return {
-    years: totalYears,
-    months: totalMonths,
-    days: remainingDays,
-    totalDays,
-    totalWeeks,
-    totalHours,
-    totalSeconds,
-    direction,
-    humanReadable: formatHumanReadable(totalYears, totalMonths, remainingDays, direction),
-  };
+  try {
+    // Parse dates
+    const targetDate = startOfDay(parseISO(targetDateStr));
+    const fromDate = fromDateStr
+      ? startOfDay(parseISO(fromDateStr))
+      : startOfDay(new Date());
+
+    if (!isValid(targetDate) || !isValid(fromDate)) {
+      throw new Error('INVALID_CHRONOLOGY');
+    }
+
+    // Determine direction
+    const direction = getDirection(fromDate, targetDate);
+
+    // Calculate components
+    const isPast = direction === 'past';
+
+    // Total components for accurate UI
+    const totalYears = Math.abs(differenceInYears(targetDate, fromDate));
+
+    // Safely move the date forward/backward by years
+    const afterYears = addYears(fromDate, isPast ? -totalYears : totalYears);
+
+    // Calculate remaining months
+    const totalMonths = Math.abs(differenceInMonths(targetDate, afterYears));
+    const afterMonths = addMonths(afterYears, isPast ? -totalMonths : totalMonths);
+
+    // Calculate remaining days
+    const remainingDays = Math.abs(differenceInDays(targetDate, afterMonths));
+
+    // Calculate Absolute Totals
+    const totalDays = Math.abs(differenceInDays(targetDate, fromDate));
+    const totalWeeks = parseFloat((totalDays / 7).toFixed(2));
+    const totalHours = Math.abs(differenceInHours(targetDate, fromDate));
+    const totalSeconds = Math.abs(differenceInSeconds(targetDate, fromDate));
+
+    return {
+      years: totalYears,
+      months: totalMonths,
+      days: remainingDays,
+      totalDays,
+      totalWeeks,
+      totalHours,
+      totalSeconds,
+      direction,
+      humanReadable: formatHumanReadable(totalYears, totalMonths, remainingDays, direction),
+    };
+  } catch (err) {
+    console.error('Temporal Calculation Failure:', err);
+    throw err;
+  }
 }
 
 /**
@@ -115,25 +119,25 @@ function formatHumanReadable(
   if (direction === 'same') {
     return 'Today';
   }
-  
+
   const parts: string[] = [];
-  
+
   if (years > 0) {
     parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
   }
-  
+
   if (months > 0) {
     parts.push(`${months} ${months === 1 ? 'month' : 'months'}`);
   }
-  
+
   if (days > 0) {
     parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
   }
-  
+
   if (parts.length === 0) {
     return 'Today';
   }
-  
+
   const formatted = parts.join(', ');
   return `${formatted} ${direction === 'past' ? 'ago' : 'from now'}`;
 }

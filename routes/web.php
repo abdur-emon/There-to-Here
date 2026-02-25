@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\DateDistanceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DateDistanceController;
 
-// Main application route
-Route::get('/', [DateDistanceController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// API endpoint for client-side calculations (optional)
-Route::post('/api/calculate', [DateDistanceController::class, 'calculate'])->name('api.calculate');
+Route::get('/app', [DateDistanceController::class, 'index'])
+    ->name('calculator');
+
+Route::post('/calculate', [DateDistanceController::class, 'calculate'])
+    ->name('calculate');

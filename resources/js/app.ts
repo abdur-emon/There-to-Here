@@ -1,20 +1,8 @@
 import './bootstrap';
 import { calculateDateDistance, isValidDateString } from '@/utils/dateDistance';
-import { getInitialState, saveState, applyTheme } from '@/utils/state';
+import { getInitialState, saveState, clearState } from '@/utils/state';
 import type { AppState, DateDistanceResult } from '@/types';
 
-/**
- * Main Application
- *
- * Architecture:
- * 1. Hydrate state from server-rendered data
- * 2. Set up event listeners
- * 3. Handle form submission
- * 4. Update UI reactively
- * 5. Persist state to cookies and URL
- */
-
-// Extend Window interface for initial state
 declare global {
   interface Window {
     __INITIAL_STATE__?: AppState;
@@ -30,51 +18,48 @@ class DateDistanceApp {
   private fromDateInput: HTMLInputElement;
   private useFromDateCheckbox: HTMLInputElement;
   private fromDateContainer: HTMLElement;
-  private themeToggle: HTMLButtonElement;
   private resultContainer: HTMLElement;
+  private errorContainer: HTMLElement | null;
+  private errorMessage: HTMLElement | null;
+
+  // Auth only elements
+  private resetButton: HTMLButtonElement | null;
+  private copyButton: HTMLButtonElement | null;
+  private shareButton: HTMLButtonElement | null;
 
   constructor() {
-    // Initialize state from server or URL/cookies
     this.state = window.__INITIAL_STATE__ || getInitialState();
 
-    // Get DOM elements
     this.form = document.getElementById('date-form') as HTMLFormElement;
     this.targetDateInput = document.getElementById('target-date') as HTMLInputElement;
     this.fromDateInput = document.getElementById('from-date') as HTMLInputElement;
     this.useFromDateCheckbox = document.getElementById('use-from-date') as HTMLInputElement;
     this.fromDateContainer = document.getElementById('from-date-container') as HTMLElement;
-    this.themeToggle = document.getElementById('theme-toggle') as HTMLButtonElement;
     this.resultContainer = document.getElementById('result-container') as HTMLElement;
+
+    this.resetButton = document.getElementById('reset-button') as HTMLButtonElement | null;
+    this.copyButton = document.getElementById('copy-button') as HTMLButtonElement | null;
+    this.shareButton = document.getElementById('share-button') as HTMLButtonElement | null;
+    this.errorContainer = document.getElementById('error-container');
+    this.errorMessage = document.getElementById('error-message');
 
     this.init();
   }
 
   private init(): void {
-    // Apply initial theme
-    applyTheme(this.state.theme);
-
-    // Set up event listeners
     this.setupEventListeners();
   }
 
   private setupEventListeners(): void {
-    // Form submission
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.handleCalculate();
     });
 
-    // From date checkbox toggle
     this.useFromDateCheckbox.addEventListener('change', () => {
       this.toggleFromDate();
     });
 
-    // Theme toggle
-    this.themeToggle.addEventListener('click', () => {
-      this.toggleTheme();
-    });
-
-    // Keyboard shortcut: Cmd+K to focus target date
     document.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -82,65 +67,78 @@ class DateDistanceApp {
       }
     });
 
-    // Auto-calculate on date change (for better UX)
-    this.targetDateInput.addEventListener('change', () => {
-      if (this.targetDateInput.value) {
-        this.handleCalculate();
-      }
-    });
+    // Automatic calculations removed as per request.
+    // Calculations only trigger on form submit (Process button).
 
-    this.fromDateInput.addEventListener('change', () => {
-      if (this.targetDateInput.value) {
-        this.handleCalculate();
-      }
-    });
+    if (this.resetButton) {
+      this.resetButton.addEventListener('click', () => this.handleReset());
+    }
+
+    if (this.copyButton) {
+      this.copyButton.addEventListener('click', () => this.handleCopy());
+    }
+
+    if (this.shareButton) {
+      this.shareButton.addEventListener('click', () => this.handleShare());
+    }
   }
 
   private handleCalculate(): void {
     const targetDate = this.targetDateInput.value;
-
-    if (!targetDate || !isValidDateString(targetDate)) {
-      return;
-    }
-
     const fromDate = this.useFromDateCheckbox.checked && this.fromDateInput.value
       ? this.fromDateInput.value
       : null;
 
-    // Validate from date if provided
-    if (fromDate && !isValidDateString(fromDate)) {
+    if (!targetDate || !isValidDateString(targetDate)) {
+      this.showError('Target date is required and must be a valid temporal coordinate.');
       return;
     }
 
-    // Calculate distance
-    const result = calculateDateDistance(targetDate, fromDate || undefined);
+    if (fromDate && !isValidDateString(fromDate)) {
+      this.showError('Custom origin date is invalid or out of temporal bounds.');
+      return;
+    }
 
-    // Update state
-    this.state.targetDate = targetDate;
-    this.state.fromDate = fromDate;
-    this.state.result = result;
+    try {
+      this.hideError();
+      const result = calculateDateDistance(targetDate, fromDate || undefined);
 
-    // Save state
-    saveState({
-      targetDate,
-      fromDate,
-    });
+      this.state.targetDate = targetDate;
+      this.state.fromDate = fromDate;
+      this.state.result = result;
 
-    // Update UI
-    this.updateUI(result);
+      saveState({
+        targetDate,
+        fromDate,
+      });
+
+      this.updateUI(result);
+    } catch (err) {
+      console.error('Calculation Error:', err);
+      this.showError('CRITICAL_TEMPORAL_ERROR: Coordinates are out of bounds or mathematically impossible.');
+    }
+  }
+
+  private showError(message: string): void {
+    if (this.errorContainer && this.errorMessage) {
+      this.errorMessage.textContent = message;
+      this.errorContainer.classList.remove('hidden');
+      this.resultContainer.classList.add('hidden');
+    }
+  }
+
+  private hideError(): void {
+    if (this.errorContainer) {
+      this.errorContainer.classList.add('hidden');
+    }
   }
 
   private updateUI(result: DateDistanceResult): void {
-    // Show result container
     this.resultContainer.classList.remove('hidden');
 
-    // Update human readable
     const humanReadable = document.getElementById('human-readable');
-    if (humanReadable) {
-      humanReadable.textContent = result.humanReadable;
-    }
+    if (humanReadable) humanReadable.textContent = result.humanReadable;
 
-    // Update direction text
     const directionText = document.getElementById('direction-text');
     if (directionText) {
       if (result.direction === 'past') {
@@ -152,12 +150,10 @@ class DateDistanceApp {
       }
     }
 
-    // Update breakdown
     this.updateElement('years', result.years.toString());
     this.updateElement('months', result.months.toString());
     this.updateElement('days', result.days.toString());
 
-    // Update totals
     this.updateElement('total-days', result.totalDays.toLocaleString());
     this.updateElement('total-weeks', result.totalWeeks.toLocaleString());
     this.updateElement('total-hours', result.totalHours.toLocaleString());
@@ -179,38 +175,102 @@ class DateDistanceApp {
       this.fromDateInput.value = '';
       this.state.fromDate = null;
       saveState({ fromDate: null });
-
-      // Recalculate if we have a target date
-      if (this.targetDateInput.value) {
-        this.handleCalculate();
-      }
     }
   }
 
-  private toggleTheme(): void {
-    const newTheme = this.state.theme === 'dark' ? 'light' : 'dark';
-    this.state.theme = newTheme;
+  private handleReset(): void {
+    clearState();
 
-    applyTheme(newTheme);
-    saveState({ theme: newTheme });
+    // Clear inputs
+    this.targetDateInput.value = '';
+    this.fromDateInput.value = '';
+    this.useFromDateCheckbox.checked = false;
+    this.fromDateContainer.classList.add('hidden');
+    this.hideError();
 
-    // Update theme icons
-    const darkIcon = document.getElementById('theme-icon-dark');
-    const lightIcon = document.getElementById('theme-icon-light');
+    // Reset state
+    this.state = getInitialState();
 
-    if (darkIcon && lightIcon) {
-      if (newTheme === 'dark') {
-        darkIcon.classList.remove('hidden');
-        lightIcon.classList.add('hidden');
-      } else {
-        darkIcon.classList.add('hidden');
-        lightIcon.classList.remove('hidden');
+    // Hide results
+    this.resultContainer.classList.add('hidden');
+
+    // Remove query params from URL without reload
+    window.history.pushState({}, '', window.location.pathname);
+  }
+
+  private async handleCopy(): Promise<void> {
+    if (!this.state.result) return;
+
+    const textToCopy = `${this.state.result.humanReadable}\n\n` +
+      `Breakdown:\n` +
+      `- ${this.state.result.years} Years\n` +
+      `- ${this.state.result.months} Months\n` +
+      `- ${this.state.result.days} Days\n\n` +
+      `Totals:\n` +
+      `- ${this.state.result.totalDays.toLocaleString()} Days\n` +
+      `- ${this.state.result.totalWeeks.toLocaleString()} Weeks\n` +
+      `- ${this.state.result.totalHours.toLocaleString()} Hours`;
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      const copyText = document.getElementById('copy-text');
+      if (copyText) {
+        const originalText = copyText.textContent;
+        copyText.textContent = 'Copied!';
+        setTimeout(() => {
+          copyText.textContent = originalText;
+        }, 2000);
       }
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  }
+
+  private async handleShare(): Promise<void> {
+    const url = window.location.href;
+    const title = 'Date Distance Calculator Result';
+    let text = 'Check out this date calculation!';
+    if (this.state.result) {
+      text = this.state.result.humanReadable;
+    }
+
+    const fallbackToClipboard = async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        const shareText = document.getElementById('share-text');
+        if (shareText) {
+          const originalText = shareText.textContent;
+          shareText.textContent = 'Link Copied!';
+          setTimeout(() => {
+            shareText.textContent = originalText;
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy link: ', err);
+      }
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text,
+          url,
+        });
+      } catch (err) {
+        // If user cancelled, don't fallback, just ignore
+        if (err instanceof Error && err.name === 'AbortError') {
+          return;
+        }
+        // For other errors, try fallback to clipboard
+        await fallbackToClipboard();
+      }
+    } else {
+      await fallbackToClipboard();
     }
   }
 }
 
-// Initialize app when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     new DateDistanceApp();

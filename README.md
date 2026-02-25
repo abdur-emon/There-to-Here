@@ -143,6 +143,20 @@ tests/
 - Node.js 18+
 - npm or yarn
 
+### Deployment
+
+To ensure a fresh start for the UI after pulling updates (e.g., from xCloud), run the deployment script:
+
+```bash
+./deploy.sh
+```
+
+This script will:
+- Install backend and frontend dependencies
+- Build fresh UI assets using Vite
+- Clear Laravel view, cache, route, and config caches
+- Run database migrations
+
 ### Installation
 
 1. **Install PHP dependencies:**
@@ -161,7 +175,12 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-4. **Build assets:**
+4. **Initialize Database (Required for Admin Features):**
+```bash
+php artisan migrate
+```
+
+5. **Build assets:**
 ```bash
 npm run build
 ```
@@ -179,6 +198,12 @@ npm run dev
 ```
 
 Visit: `http://localhost:8000`
+
+### Accessing Admin Features (Copy/Share/Reset)
+
+This application includes protected features behind an authentication wall.
+1. Navigate to `http://localhost:8000/register` to create a local account.
+2. Once logged in, return to the main calculator to access the **Copy, Share, and Reset** actions.
 
 ### Testing
 
