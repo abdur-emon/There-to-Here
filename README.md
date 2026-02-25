@@ -30,7 +30,7 @@ A high-precision, production-grade Laravel application engineered to compute the
 - **Build System**: Vite 5
 - **Styling**: Tailwind CSS 3.4
 - **Utilities**: date-fns v4 (modern, tree-shakeable date logic)
- test line
+
 **Visual Language:**
 - Cyber-minimalist design system
 - Dynamic gradient blurs & glassmorphism
@@ -82,5 +82,5 @@ Open source under the MIT License.
 
 ---
 
-**Developed with precision by [abdur-emon](https://github.com/abdur-emon)**
+**Developed with precision by [Abdur Rahman Emon](https://github.com/abdur-emon)**
 *Engineered at the intersection of time and technology.*
