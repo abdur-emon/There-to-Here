@@ -93,14 +93,14 @@
         </div>
     </main>
 
-    <footer class="border-t border-white/5 bg-slate-950/80 backdrop-blur-sm py-6 text-center z-20 relative mt-16">
-        <p
-            class="text-slate-500 text-[10px] font-mono uppercase tracking-[0.2em] flex items-center justify-center gap-2">
-            <span class="w-1 h-1 bg-sky-500/50 rounded-full"></span>
-            Developed_by // <span class="text-sky-400/80 hover:text-sky-400 transition-colors cursor-default">Abdur
-                Rahman Emon</span>
-            <span class="w-1 h-1 bg-sky-500/50 rounded-full"></span>
-        </p>
+    <footer class="border-t border-white/5 bg-slate-950/80 backdrop-blur-sm py-10 text-center z-20 relative mt-16 group">
+        <div class="flex items-center justify-center gap-4 opacity-50 hover:opacity-100 transition-opacity duration-700">
+            <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-sky-500/20"></div>
+            <p class="text-slate-500 text-[10px] font-mono uppercase tracking-[0.3em]">
+                Developed_by // <span class="text-sky-400 group-hover:text-sky-300 transition-colors">Abdur Rahman Emon</span>
+            </p>
+            <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-sky-500/20"></div>
+        </div>
     </footer>
 </body>
 

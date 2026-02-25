@@ -82,13 +82,22 @@
             </div>
 
             <!-- Footer -->
-            <div class="text-center mt-12 text-slate-500 text-xs font-mono tracking-widest uppercase">
-                <p>Built by <span class="text-sky-400">Abdur Rahman Emon</span> // Precise date distance</p>
-                <p class="mt-2">
-                    <kbd class="px-2 py-1 bg-slate-900 border border-sky-500/30 rounded-sm text-[10px] text-sky-400 shadow-[0_0_5px_rgba(56,189,248,0.2)] mr-2">Cmd+K</kbd> 
-                    to focus input
-                </p>
-            </div>
+            <footer class="mt-20 flex flex-col items-center gap-6 opacity-40 hover:opacity-100 transition-opacity duration-700 group">
+                <div class="flex items-center gap-4">
+                    <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-sky-500/20"></div>
+                    <div class="text-[10px] font-mono uppercase tracking-[0.3em] text-slate-500">
+                        Developed_by // <span class="text-sky-400 group-hover:text-sky-300 transition-colors">Abdur Rahman Emon</span>
+                    </div>
+                    <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-sky-500/20"></div>
+                </div>
+                
+                <div class="flex items-center gap-3 text-[9px] font-mono text-slate-600 tracking-widest uppercase">
+                    <span class="px-2 py-0.5 rounded border border-slate-800 bg-slate-900/50">CMD</span>
+                    <span class="text-sky-500/30">+</span>
+                    <span class="px-2 py-0.5 rounded border border-slate-800 bg-slate-900/50">K</span>
+                    <span class="ml-2 opacity-70">Focus_Input_Buffer</span>
+                </div>
+            </footer>
         </div>
     </div>
 
