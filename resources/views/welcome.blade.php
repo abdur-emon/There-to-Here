@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+
     <!-- Vite Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
@@ -37,13 +40,17 @@
     <!-- Navigation Area -->
     <nav
         class="absolute top-0 w-full px-6 py-4 flex justify-between items-center z-20 border-b border-white/5 bg-slate-950/50 backdrop-blur-md">
-        <div class="text-xl font-bold text-white tracking-widest uppercase flex items-center gap-3">
-            <div class="relative flex items-center justify-center w-8 h-8">
-                <div class="absolute inset-0 border border-sky-500/50 rotate-45 animate-spin-slow"></div>
-                <div class="w-1.5 h-1.5 bg-sky-400 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.8)]"></div>
+        <a href="/" class="flex items-center gap-4 group">
+            <div
+                class="relative w-10 h-10 overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm group-hover:border-sky-500/50 transition-all duration-500 shadow-lg">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo"
+                    class="w-full h-full object-contain p-1.5 hover:scale-110 transition-transform duration-700">
             </div>
-            There_to_<span class="text-sky-400">Here</span>
-        </div>
+            <div
+                class="text-xl font-black text-white tracking-widest uppercase transition-all duration-500 group-hover:tracking-[0.25em]">
+                There_to_<span class="text-sky-400">Here</span>
+            </div>
+        </a>
 
         <div class="flex space-x-4 items-center">
             <a href="{{ url('/app') }}"
