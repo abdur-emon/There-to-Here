@@ -138,8 +138,7 @@ function formatHumanReadable(
     return 'Today';
   }
 
-  const formatted = parts.join(', ');
-  return `${formatted} ${direction === 'past' ? 'ago' : 'from now'}`;
+  return parts.join(', ');
 }
 
 /**

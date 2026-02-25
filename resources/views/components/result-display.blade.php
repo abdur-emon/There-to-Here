@@ -74,30 +74,26 @@
         </h3>
         <div class="space-y-4 font-mono">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
-                <span class="text-slate-500 text-[10px] tracking-widest uppercase">TTL_DAYS</span>
+                <span class="text-slate-500 text-[10px] tracking-widest uppercase">DAYS</span>
                 <span class="text-lg text-sky-300 shadow-sm"
                     id="total-days">{{ $result ? number_format($result['totalDays']) : 0 }}</span>
             </div>
             <div
                 class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-t border-sky-500/10 pt-3">
-                <span class="text-slate-500 text-[10px] tracking-widest uppercase">TTL_WEEKS</span>
+                <span class="text-slate-500 text-[10px] tracking-widest uppercase">WEEKS</span>
                 <span class="text-lg text-sky-300 shadow-sm"
                     id="total-weeks">{{ $result ? number_format($result['totalWeeks'], 2) : 0 }}</span>
             </div>
             <div
                 class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-t border-sky-500/10 pt-3">
-                <span class="text-slate-500 text-[10px] tracking-widest uppercase">TTL_HOURS</span>
+                <span class="text-slate-500 text-[10px] tracking-widest uppercase">HOURS</span>
                 <span class="text-lg text-sky-300 shadow-sm"
                     id="total-hours">{{ $result ? number_format($result['totalHours']) : 0 }}</span>
             </div>
             <div
-                class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-t border-sky-500/10 pt-3 relative">
-                <div
-                    class="hidden sm:block absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-6 bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]">
-                </div>
-                <span class="text-slate-400 font-bold text-[10px] tracking-widest uppercase sm:pl-4">TTL_SECONDS</span>
-                <span
-                    class="text-lg sm:text-xl font-bold text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.2)] animate-pulse-glow"
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 border-t border-sky-500/10 pt-3">
+                <span class="text-slate-500 text-[10px] tracking-widest uppercase">SECONDS</span>
+                <span class="text-lg text-sky-300 shadow-sm"
                     id="total-seconds">{{ $result ? number_format($result['totalSeconds']) : 0 }}</span>
             </div>
         </div>

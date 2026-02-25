@@ -40,24 +40,24 @@ class DateDistanceService
         // Parse dates using Carbon (immutable to prevent side effects)
         $target = Carbon::parse($targetDate)->startOfDay();
         $from = $fromDate ? Carbon::parse($fromDate)->startOfDay() : Carbon::today();
-        
+
         // Determine direction
         $direction = $this->getDirection($from, $target);
-        
+
         // Calculate the interval
         $interval = $from->diff($target);
-        
+
         // Calculate totals
         $totalDays = abs($from->diffInDays($target));
         $totalWeeks = round($totalDays / 7, 2);
         $totalHours = abs($from->diffInHours($target));
         $totalSeconds = abs($from->diffInSeconds($target));
-        
+
         // Extract years, months, days from interval
         $years = $interval->y;
         $months = $interval->m;
         $days = $interval->d;
-        
+
         return [
             'years' => $years,
             'months' => $months,
@@ -70,7 +70,7 @@ class DateDistanceService
             'humanReadable' => $this->formatHumanReadable($years, $months, $days, $direction),
         ];
     }
-    
+
     /**
      * Determine the direction of the date difference
      * 
@@ -83,10 +83,10 @@ class DateDistanceService
         if ($target->isSameDay($from)) {
             return 'same';
         }
-        
+
         return $target->isPast() || $target->isBefore($from) ? 'past' : 'future';
     }
-    
+
     /**
      * Format a human-readable duration string
      * 
@@ -106,31 +106,29 @@ class DateDistanceService
         if ($direction === 'same') {
             return 'Today';
         }
-        
+
         $parts = [];
-        
+
         if ($years > 0) {
             $parts[] = $years . ' ' . ($years === 1 ? 'year' : 'years');
         }
-        
+
         if ($months > 0) {
             $parts[] = $months . ' ' . ($months === 1 ? 'month' : 'months');
         }
-        
+
         if ($days > 0) {
             $parts[] = $days . ' ' . ($days === 1 ? 'day' : 'days');
         }
-        
+
         // If no parts, it means same day (edge case)
         if (empty($parts)) {
             return 'Today';
         }
-        
-        $formatted = implode(', ', $parts);
-        
-        return $formatted . ($direction === 'past' ? ' ago' : ' from now');
+
+        return implode(', ', $parts);
     }
-    
+
     /**
      * Validate a date string
      * 
