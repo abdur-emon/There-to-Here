@@ -60,7 +60,7 @@
             <div
                 class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-mono tracking-widest uppercase mb-8 shadow-[0_0_15px_rgba(56,189,248,0.15)] animate-float-fast">
                 <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                Date Distance Calculator v2.0
+                Date Distance Calculator v1.0
             </div>
 
             <h1
@@ -93,11 +93,14 @@
         </div>
     </main>
 
-    <footer class="border-t border-white/5 bg-slate-950/80 backdrop-blur-sm py-10 text-center z-20 relative mt-16 group">
-        <div class="flex items-center justify-center gap-4 opacity-50 hover:opacity-100 transition-opacity duration-700">
+    <footer
+        class="border-t border-white/5 bg-slate-950/80 backdrop-blur-sm py-10 text-center z-20 relative mt-16 group">
+        <div
+            class="flex items-center justify-center gap-4 opacity-50 hover:opacity-100 transition-opacity duration-700">
             <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-sky-500/20"></div>
             <p class="text-slate-500 text-[10px] font-mono uppercase tracking-[0.3em]">
-                Developed_by // <span class="text-sky-400 group-hover:text-sky-300 transition-colors">Abdur Rahman Emon</span>
+                Developed_by // <span class="text-sky-400 group-hover:text-sky-300 transition-colors">Abdur Rahman
+                    Emon</span>
             </p>
             <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-sky-500/20"></div>
         </div>
