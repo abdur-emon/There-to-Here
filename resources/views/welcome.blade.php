@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Calculate the precise time between any two dates with beautiful visualizations.">
 
-    <title>{{ config('app.name', 'Date Distance Calculator') }}</title>
+    <title>There to Here - Date Distance Calculator</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

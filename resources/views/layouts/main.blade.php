@@ -7,7 +7,7 @@
     <meta name="description"
         content="Distance Between Dates. Calculate the precise time between any two dates with beautiful visualizations.">
 
-    <title>{{ $title ?? config('app.name') . ' - Date Distance Calculator' }}</title>
+    <title>{{ $title ?? 'There to Here - Date Distance Calculator' }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
