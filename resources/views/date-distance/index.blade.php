@@ -83,7 +83,7 @@
 
             <!-- Footer -->
             <div class="text-center mt-12 text-slate-500 text-xs font-mono tracking-widest uppercase">
-                <p>Built for precise date calculations</p>
+                <p>Built by <span class="text-sky-400">Abdur Rahman Emon</span> // Precise date distance</p>
                 <p class="mt-2">
                     <kbd class="px-2 py-1 bg-slate-900 border border-sky-500/30 rounded-sm text-[10px] text-sky-400 shadow-[0_0_5px_rgba(56,189,248,0.2)] mr-2">Cmd+K</kbd> 
                     to focus input

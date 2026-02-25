@@ -94,7 +94,12 @@
     </main>
 
     <footer class="border-t border-white/5 bg-slate-950/80 backdrop-blur-sm py-6 text-center z-20 relative mt-16">
-        <p class="text-slate-500 text-xs font-mono uppercase tracking-widest">SYS.VER {{ date('Y') }} // TERMINAL SECURE
+        <p
+            class="text-slate-500 text-[10px] font-mono uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+            <span class="w-1 h-1 bg-sky-500/50 rounded-full"></span>
+            Developed_by // <span class="text-sky-400/80 hover:text-sky-400 transition-colors cursor-default">Abdur
+                Rahman Emon</span>
+            <span class="w-1 h-1 bg-sky-500/50 rounded-full"></span>
         </p>
     </footer>
 </body>
