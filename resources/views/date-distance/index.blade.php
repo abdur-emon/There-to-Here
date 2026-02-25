@@ -9,8 +9,8 @@
                     <span class="w-2 h-2 bg-sky-400 animate-pulse"></span>
                     Terminal Access
                 </div>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3 bengali-text animate-flicker">
-                    একদিন তো মরেই যাবো !
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3 animate-flicker">
+                    Distance Between Dates
                 </h1>
                 <p class="text-sky-500/70 font-mono tracking-widest uppercase text-sm">
                     Calculate exact date distance

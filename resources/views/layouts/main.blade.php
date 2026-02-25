@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="একদিন তো মরেই যাবো ! Calculate the precise time between any two dates with beautiful visualizations.">
+        content="Distance Between Dates. Calculate the precise time between any two dates with beautiful visualizations.">
 
-    <title>{{ $title ?? 'একদিন তো মরেই যাবো ! - Date Distance Calculator' }}</title>
+    <title>{{ $title ?? 'Distance Between Dates - Date Distance Calculator' }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
