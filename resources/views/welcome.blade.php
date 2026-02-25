@@ -63,17 +63,12 @@
 
         <div class="text-center max-w-4xl mx-auto flex flex-col items-center">
 
-            <!-- Hero logo -->
-            <div class="relative mb-8 group">
-                <div class="absolute inset-0 bg-sky-500/20 blur-3xl rounded-full scale-150 animate-pulse-glow"></div>
-                <img src="{{ asset('images/logo.png') }}" alt="Logo"
-                    class="relative w-24 h-24 object-contain animate-float drop-shadow-[0_0_15px_rgba(56,189,248,0.4)]">
-            </div>
+
 
             <!-- Tech Badge -->
             <div
                 class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-mono tracking-widest uppercase mb-8 shadow-[0_0_15px_rgba(56,189,248,0.15)] animate-float-fast">
-                <img src="{{ asset('images/logo.png') }}" class="w-3 h-3 object-contain opacity-80" alt="icon">
+                <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
                 Date Distance Calculator v1.0
             </div>
 
@@ -112,9 +107,7 @@
         <div
             class="flex items-center justify-center gap-4 opacity-50 hover:opacity-100 transition-opacity duration-700">
             <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-sky-500/20"></div>
-            <img src="{{ asset('images/logo.png') }}"
-                class="w-4 h-4 object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                alt="logo">
+
             <p class="text-slate-500 text-[10px] font-mono uppercase tracking-[0.3em]">
                 Developed_by // <span class="text-sky-400 group-hover:text-sky-300 transition-colors">Abdur Rahman
                     Emon</span>

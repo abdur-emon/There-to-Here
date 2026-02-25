@@ -6,7 +6,7 @@
             <!-- Header -->
             <div class="text-center mb-10">
                 <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-mono tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(56,189,248,0.15)] animate-float-fast">
-                    <img src="{{ asset('images/logo.png') }}" class="w-3 h-3 object-contain opacity-80" alt="icon">
+                    <span class="w-2 h-2 bg-sky-400 animate-pulse"></span>
                     Terminal Access
                 </div>
                 <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3 animate-flicker">
@@ -92,7 +92,7 @@
 
                 <div class="flex items-center gap-4">
                     <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-sky-500/20"></div>
-                    <img src="{{ asset('images/logo.png') }}" class="w-4 h-4 object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="logo">
+
                     <div class="text-[10px] font-mono uppercase tracking-[0.3em] text-slate-500">
                         Developed_by // <span class="text-sky-400 group-hover:text-sky-300 transition-colors">Abdur Rahman Emon</span>
                     </div>
